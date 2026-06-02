@@ -6,18 +6,10 @@ mumumu の個人ブログ。Astro + Markdown。
 
 ```sh
 pnpm install
-cp .env.example .env  # GitHub / Qiita ハンドルを記入
 pnpm dev      # http://localhost:4321
 pnpm build    # ./dist/ に出力
 pnpm preview  # ビルド結果をローカル確認
 ```
-
-## 環境変数
-
-- `PUBLIC_GITHUB_HANDLE` — フッターの GitHub リンクに使う
-- `PUBLIC_QIITA_HANDLE` — フッターの Qiita リンクに使う
-
-未設定なら該当リンクは非表示。Cloudflare Pages では Settings → Environment variables で同じキーを登録する。
 
 ## 記事を書く
 

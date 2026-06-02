@@ -9,28 +9,20 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 5);
 
-const githubHandle = import.meta.env.PUBLIC_GITHUB_HANDLE;
-const qiitaHandle = import.meta.env.PUBLIC_QIITA_HANDLE;
-
 const socials = [
-  githubHandle && {
+  {
     name: "GitHub",
-    handle: `@${githubHandle}`,
-    href: `https://github.com/${githubHandle}`,
+    handle: "@okki-0417",
+    href: "https://github.com/okki-0417",
     description: "コードはここに置いています",
   },
-  qiitaHandle && {
+  {
     name: "Qiita",
-    handle: `@${qiitaHandle}`,
-    href: `https://qiita.com/${qiitaHandle}`,
+    handle: "@okki-0417",
+    href: "https://qiita.com/okki-0417",
     description: "技術記事を投稿しています",
   },
-].filter(Boolean) as {
-  name: string;
-  handle: string;
-  href: string;
-  description: string;
-}[];
+];
 ---
 
 <!doctype html>
@@ -69,35 +61,49 @@ const socials = [
         </p>
       </section>
 
-      {
-        socials.length > 0 && (
-          <section class="mt-12">
-            <h2 class="text-2xl">他のところでも</h2>
-            <ul class="list-none divide-y divide-surface p-0">
-              {socials.map((s) => (
-                <li class="py-4 first:pt-0 last:pb-0">
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener"
-                    class="group flex flex-wrap items-baseline gap-x-3 no-underline"
-                  >
-                    <span class="text-ink text-lg group-hover:text-accent">
-                      {s.name}
-                    </span>
-                    <span class="text-muted text-sm tabular-nums">
-                      {s.handle}
-                    </span>
-                    <span class="text-body text-sm w-full sm:w-auto sm:ml-auto">
-                      {s.description}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )
-      }
+      <section class="mt-12">
+        <h2 class="text-2xl">つくっているもの</h2>
+        <ul class="list-none divide-y divide-surface p-0">
+          <li class="py-4 first:pt-0 last:pb-0">
+            <a
+              href="https://mahjong-yaritai.com"
+              target="_blank"
+              rel="noopener"
+              class="group flex flex-wrap items-baseline gap-x-3 no-underline"
+            >
+              <span class="text-ink text-lg group-hover:text-accent">麻雀ヤリタイ</span>
+              <span class="text-muted text-sm tabular-nums">mahjong-yaritai.com</span>
+              <span class="text-body text-sm w-full sm:w-auto sm:ml-auto">
+                麻雀好きがオンラインで集まれる場所
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-2xl">他のところでも</h2>
+        <ul class="list-none divide-y divide-surface p-0">
+          {socials.map((s) => (
+            <li class="py-4 first:pt-0 last:pb-0">
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener"
+                class="group flex flex-wrap items-baseline gap-x-3 no-underline"
+              >
+                <span class="text-ink text-lg group-hover:text-accent">
+                  {s.name}
+                </span>
+                <span class="text-muted text-sm tabular-nums">{s.handle}</span>
+                <span class="text-body text-sm w-full sm:w-auto sm:ml-auto">
+                  {s.description}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
     <Footer />
   </body>
