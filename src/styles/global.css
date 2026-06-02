@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #2337ff;
+  --color-accent-dark: #000d8a;
+  --color-ink: rgb(15 18 25);
+  --color-muted: rgb(96 115 159);
+  --color-surface: rgb(229 233 240);
+  --color-body: rgb(34 41 57);
+  --font-sans: var(--font-atkinson), sans-serif;
+  --shadow-soft:
+    0 2px 6px rgba(96, 115, 159, 0.25),
+    0 8px 24px rgba(96, 115, 159, 0.33),
+    0 16px 32px rgba(96, 115, 159, 0.33);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-atkinson), sans-serif;
+    color: var(--color-body);
+    font-size: 20px;
+    line-height: 1.7;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background: linear-gradient(rgb(229 233 240 / 0.5), #fff) no-repeat;
+    background-size: 100% 600px;
+  }
+  @media (max-width: 720px) {
+    body {
+      font-size: 17px;
+    }
+  }
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-ink);
+    line-height: 1.2;
+  }
+  h1 { font-size: 3.052em; }
+  h2 { font-size: 2.441em; }
+  h3 { font-size: 1.953em; }
+  h4 { font-size: 1.563em; }
+  h5 { font-size: 1.25em; }
+  @media (max-width: 720px) {
+    h1 { font-size: 2.25em; }
+    h2 { font-size: 1.85em; }
+    h3 { font-size: 1.5em; }
+    h4 { font-size: 1.25em; }
+    pre {
+      font-size: 0.85em;
+      padding: 1em;
+    }
+    code {
+      font-size: 0.9em;
+    }
+  }
+  strong, b { font-weight: 700; }
+  a { color: var(--color-accent); }
+  a:hover { color: var(--color-accent); }
+  p { margin-bottom: 1em; }
+  textarea, input { width: 100%; font-size: 16px; }
+  table { width: 100%; }
+  img { max-width: 100%; height: auto; border-radius: 8px; }
+  code {
+    padding: 2px 5px;
+    background-color: var(--color-surface);
+    border-radius: 2px;
+  }
+  pre {
+    padding: 1.5em;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  pre > code {
+    all: unset;
+  }
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    padding: 0 0 0 20px;
+    margin: 0;
+    font-size: 1.333em;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-surface);
+  }
+}
+
+@layer components {
+  .prose p {
+    margin-bottom: 2em;
+  }
+  .prose pre {
+    margin-bottom: 2em;
+  }
+}

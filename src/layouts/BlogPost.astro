@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+---
+
+<html lang="ja">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body>
+		<main class="mx-auto w-full max-w-180 px-6 py-8">
+			<Breadcrumb
+				items={[
+					{ label: 'Home', href: '/' },
+					{ label: 'Blog', href: '/blog' },
+					{ label: title },
+				]}
+			/>
+			<article class="prose text-body">
+				<div class="mb-8">
+					<div class="mb-2 text-muted text-sm">
+						<FormattedDate date={pubDate} />
+						{
+							updatedDate && (
+								<span class="italic">
+									{' '}· Last updated on <FormattedDate date={updatedDate} />
+								</span>
+							)
+						}
+					</div>
+					<h1 class="mt-0 mb-2">{title}</h1>
+				</div>
+				<hr class="mb-8" />
+				<slot />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

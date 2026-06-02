@@ -1,0 +1,104 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
+
+const githubHandle = import.meta.env.PUBLIC_GITHUB_HANDLE;
+const qiitaHandle = import.meta.env.PUBLIC_QIITA_HANDLE;
+
+const socials = [
+  githubHandle && {
+    name: "GitHub",
+    handle: `@${githubHandle}`,
+    href: `https://github.com/${githubHandle}`,
+    description: "コードはここに置いています",
+  },
+  qiitaHandle && {
+    name: "Qiita",
+    handle: `@${qiitaHandle}`,
+    href: `https://qiita.com/${qiitaHandle}`,
+    description: "技術記事を投稿しています",
+  },
+].filter(Boolean) as {
+  name: string;
+  handle: string;
+  href: string;
+  description: string;
+}[];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <main class="mx-auto w-full max-w-180 px-6 py-12">
+      <section>
+        <h1>こんにちは、<br class="sm:hidden" />ouki です</h1>
+        <p>日々の学びや考えたことを書き残すためのブログです。</p>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-2xl">最近の記事</h2>
+        <ul class="list-none p-0">
+          {
+            posts.map((post) => (
+              <li class="mb-3">
+                <a
+                  href={`/blog/${post.id}/`}
+                  class="flex flex-wrap items-baseline gap-x-3 no-underline hover:text-accent"
+                >
+                  <span class="text-muted text-sm tabular-nums">
+                    <FormattedDate date={post.data.pubDate} />
+                  </span>
+                  <span class="text-ink">{post.data.title}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-4">
+          <a href="/blog">すべての記事 →</a>
+        </p>
+      </section>
+
+      {
+        socials.length > 0 && (
+          <section class="mt-12">
+            <h2 class="text-2xl">他のところでも</h2>
+            <ul class="list-none divide-y divide-surface p-0">
+              {socials.map((s) => (
+                <li class="py-4 first:pt-0 last:pb-0">
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener"
+                    class="group flex flex-wrap items-baseline gap-x-3 no-underline"
+                  >
+                    <span class="text-ink text-lg group-hover:text-accent">
+                      {s.name}
+                    </span>
+                    <span class="text-muted text-sm tabular-nums">
+                      {s.handle}
+                    </span>
+                    <span class="text-body text-sm w-full sm:w-auto sm:ml-auto">
+                      {s.description}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </main>
+    <Footer />
+  </body>
+</html>
